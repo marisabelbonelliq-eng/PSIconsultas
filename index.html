@@ -99,6 +99,18 @@ label{font-size:12px;color:#666;display:block;margin-bottom:4px;font-weight:500}
 .chart-bar-bg{background:#f0eeff;border-radius:6px;height:26px;overflow:hidden;position:relative}
 .chart-bar-fill{height:26px;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:700;color:#fff;transition:width .5s ease;min-width:2px}
 .chart-bar-val{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:700;color:#534AB7}
+/* WELCOME SCREEN */
+.welcome-screen{position:fixed;inset:0;background:linear-gradient(135deg,#f5f4fa 0%,#ede9ff 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;transition:opacity .5s ease}
+.welcome-screen.hidden{opacity:0;pointer-events:none}
+.welcome-img{width:160px;height:160px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 8px 32px rgba(83,74,183,.18);margin-bottom:22px}
+.welcome-title{font-size:26px;font-weight:700;color:#1a1a2e;margin-bottom:6px;letter-spacing:-.5px}
+.welcome-sub{font-size:14px;color:#888;margin-bottom:32px}
+.welcome-btn{background:#534AB7;color:#fff;border:none;border-radius:12px;padding:13px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 18px rgba(83,74,183,.28);transition:all .15s}
+.welcome-btn:hover{background:#3C3489;transform:translateY(-1px)}
+.welcome-quote{font-size:12px;color:#aaa;margin-top:20px;font-style:italic;max-width:260px;text-align:center}
+/* TERAPIA TIPO field */
+.terapia-tag{display:inline-block;background:#f3f2fd;color:#534AB7;border-radius:8px;padding:4px 10px;font-size:12px;font-weight:600;margin-right:4px;margin-bottom:4px}
+
 .chart-title{font-size:14px;font-weight:700;margin-bottom:14px;color:#1a1a2e}
 .stat-pill{display:inline-flex;align-items:center;gap:6px;background:#f3f2fd;color:#534AB7;border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;margin:3px}
 
@@ -127,7 +139,14 @@ label{font-size:12px;color:#666;display:block;margin-bottom:4px;font-weight:500}
 </style>
 </head>
 <body>
-<div class="app">
+<div id="welcome-screen" class="welcome-screen">
+  <img src="data:image/jpeg;base64,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" class="welcome-img" alt="PsiConsulta">
+  <div class="welcome-title">PsiConsulta</div>
+  <div class="welcome-sub">Gestion clinica para tu consulta psicologica</div>
+  <button class="welcome-btn" onclick="entrarApp()">&#10024; Ingresar</button>
+  <div class="welcome-quote">"El cuidado de la salud mental comienza con la organizacion"</div>
+</div>
+<div class="app" id="main-app" style="display:none">
 <div class="sidebar">
   <div class="sb-logo">
     <h1><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#534AB7" stroke-width="2"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="12" r="10"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>PsiConsulta</h1>
@@ -252,6 +271,26 @@ label{font-size:12px;color:#666;display:block;margin-bottom:4px;font-weight:500}
     <div class="fg"><label>Tipo de atencion</label><select id="f-tipo"><option value="sesion individual">Sesion individual</option><option value="orientacion parental">Orientacion parental</option><option value="paquete">Paquete</option><option value="evaluacion">Evaluacion</option><option value="visita domiciliaria">Visita domiciliaria</option></select></div>
   </div>
   <div class="r2"><div class="fg"><label>Motivo de consulta</label><textarea id="f-motivo" rows="2" placeholder="Motivo principal..."></textarea></div><div class="fg"><label>Derivado por</label><input id="f-derivado" placeholder="Profesional o institucion"><br><br><label>Diagnostico / CIE-10</label><input id="f-cie" placeholder="Ej: F41.1"></div></div>
+  <div class="r2">
+    <div class="fg"><label>Tipo de terapia</label>
+      <select id="f-terapia">
+        <option value="">-- Seleccionar --</option>
+        <option value="Cognitivo-conductual (TCC)">Cognitivo-conductual (TCC)</option>
+        <option value="Psicoanalitica">Psicoanalitica</option>
+        <option value="Humanista">Humanista</option>
+        <option value="Sistemica">Sistemica</option>
+        <option value="Gestalt">Gestalt</option>
+        <option value="EMDR">EMDR</option>
+        <option value="Mindfulness">Mindfulness</option>
+        <option value="Terapia de juego">Terapia de juego</option>
+        <option value="Neuropsicologia">Neuropsicologia</option>
+        <option value="Psicoeducacion">Psicoeducacion</option>
+        <option value="Integrativa">Integrativa</option>
+        <option value="Otra">Otra</option>
+      </select>
+    </div>
+    <div class="fg"><label>Especificar si es Otra</label><input id="f-terapia-otra" placeholder="Nombre de la terapia..."></div>
+  </div>
   <div class="fg"><label>Observaciones generales</label><textarea id="f-obs" rows="3" placeholder="Antecedentes, historia familiar, contexto, medicacion..."></textarea></div>
   <div class="sec-title">Modalidad de cobro</div>
   <div class="r2">
@@ -343,6 +382,13 @@ var S=JSON.parse(localStorage.getItem('psi5_s')||'[]');
 var PG=JSON.parse(localStorage.getItem('psi5_pg')||'[]');
 var editId=null,curPid=null,editSessId=null;
 var calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
+function entrarApp(){
+  var ws=document.getElementById('welcome-screen');
+  ws.classList.add('hidden');
+  setTimeout(function(){ws.style.display='none';},500);
+  document.getElementById('main-app').style.display='flex';
+  renderPacientes();
+}
 var avC=['av0','av1','av2','av3','av4'];
 var PAT_COLORS=['#534AB7','#e1306c','#4fc3f7','#81c784','#ffb74d','#f06292','#26c6da','#a5d6a7','#ce93d8','#ff8a65'];
 function av(_,id){return avC[id%5];}
@@ -630,7 +676,13 @@ function renderEstadisticas(){
       +'</div></div>';
   }).join('');
 
-  c.innerHTML=
+// Terapia chart
+  var terapiaCount={};
+  P.forEach(function(p){if(p.terapia){var t=p.terapia;terapiaCount[t]=(terapiaCount[t]||0)+1;}});
+  var terapiaSorted=Object.entries(terapiaCount).sort(function(a,b){return b[1]-a[1];});
+  var terapiaHTML=terapiaSorted.length===0?'<div class="empty">Sin tipos de terapia registrados aun.</div>':terapiaSorted.map(function(e,i){var pct=Math.round(e[1]/catTotal*100);var color=tipoColors[i%tipoColors.length];return'<div class="chart-bar-wrap"><div class="chart-bar-label"><span>'+e[0]+'</span><span style="color:#aaa">'+e[1]+' pac.</span></div><div class="chart-bar-bg"><div class="chart-bar-fill" style="width:'+pct+'%;background:'+color+'">'+(pct>12?pct+'%':'')+'</div>'+(pct<=12?'<span class="chart-bar-val">'+pct+'%</span>':'')+'</div></div>';}).join('');
+
+    c.innerHTML=
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">'
     // Col 1
     +'<div>'
@@ -642,7 +694,7 @@ function renderEstadisticas(){
     +'<div>'
       +'<div class="card" style="margin-bottom:14px"><div class="chart-title">Poblacion <span style="font-size:12px;color:#aaa;font-weight:400">(por categoria)</span></div>'+catHTML+'</div>'
       +'<div class="card" style="margin-bottom:14px"><div class="chart-title">Modalidad de atencion</div>'+modalHTML+'</div>'
-      +'<div class="card"><div class="chart-title">Estado de pacientes</div>'+estadoHTML+'</div>'
+      +'<div class="card"><div class="chart-title">Estado de pacientes</div>'+estadoHTML+'</div>'+'<div class="card" style="margin-top:14px"><div class="chart-title">Tipo de terapia aplicada</div>'+terapiaHTML+'</div>'
     +'</div>'
     +'</div>';
 }
@@ -659,9 +711,10 @@ function openModalPaciente(id){
   document.getElementById('modal-p-titulo').textContent=id?'Editar paciente':'Nuevo paciente';
   ['nombre','apellido','dni','tel','email','dir','os','afilid','emerg','emergtel','motivo','obs','tarifa','derivado','cie'].forEach(function(k){var el=document.getElementById('f-'+k);if(el)el.value=p[k]||'';});
   if(p.fnac)document.getElementById('f-fnac').value=p.fnac;
-  ['sexo','estado','modalidad','tipo','mpago','cobro','categoria'].forEach(function(k){var el=document.getElementById('f-'+k);if(el)el.value=p[k]||(k==='estado'?'activo':k==='cobro'?'por sesion':k==='categoria'?'adulto':'');});
+  ['sexo','estado','modalidad','tipo','mpago','cobro','categoria','terapia'].forEach(function(k){var el=document.getElementById('f-'+k);if(el)el.value=p[k]||(k==='estado'?'activo':k==='cobro'?'por sesion':k==='categoria'?'adulto':'');});
   var tutMap={'tutorNombre':'tutor-nombre','tutorVinculo':'tutor-vinculo','tutorDni':'tutor-dni','tutorTel':'tutor-tel','tutorEmail':'tutor-email','tutorObs':'tutor-obs'};
   Object.entries(tutMap).forEach(function(e){var el=document.getElementById('f-'+e[1]);if(el)el.value=p[e[0]]||'';});
+  if(p.terapia&&!['Cognitivo-conductual (TCC)','Psicoanalitica','Humanista','Sistemica','Gestalt','EMDR','Mindfulness','Terapia de juego','Neuropsicologia','Psicoeducacion','Integrativa'].includes(p.terapia)){document.getElementById('f-terapia').value='Otra';document.getElementById('f-terapia-otra').value=p.terapia;}else{document.getElementById('f-terapia-otra').value='';}
   var paqF={'f-paq-nsesiones':'paqNsesiones','f-paq-precio':'paqPrecio','f-paq-cuotas':'paqCuotas','f-paq-ncuotas':'paqNcuotas'};
   Object.entries(paqF).forEach(function(e){var el=document.getElementById(e[0]);if(el)el.value=p[e[1]]||'';});
   toggleCobro();toggleTutor();
@@ -673,7 +726,7 @@ function guardarPaciente(){
   var nombre=document.getElementById('f-nombre').value.trim(),apellido=document.getElementById('f-apellido').value.trim();
   if(!nombre||!apellido){alert('Nombre y apellido son obligatorios.');return;}
   var cobro=document.getElementById('f-cobro').value,cat=document.getElementById('f-categoria').value;
-  var d={nombre:nombre,apellido:apellido,fnac:document.getElementById('f-fnac').value,dni:document.getElementById('f-dni').value,sexo:document.getElementById('f-sexo').value,categoria:cat,tel:document.getElementById('f-tel').value,email:document.getElementById('f-email').value,dir:document.getElementById('f-dir').value,os:document.getElementById('f-os').value,afilid:document.getElementById('f-afilid').value,emerg:document.getElementById('f-emerg').value,emergtel:document.getElementById('f-emergtel').value,estado:document.getElementById('f-estado').value,modalidad:document.getElementById('f-modalidad').value,tipo:document.getElementById('f-tipo').value,motivo:document.getElementById('f-motivo').value,derivado:document.getElementById('f-derivado').value,cie:document.getElementById('f-cie').value,obs:document.getElementById('f-obs').value,cobro:cobro,mpago:document.getElementById('f-mpago').value,tarifa:cobro==='por sesion'?document.getElementById('f-tarifa').value:'',paqNsesiones:cobro==='por paquete'?document.getElementById('f-paq-nsesiones').value:'',paqPrecio:cobro==='por paquete'?document.getElementById('f-paq-precio').value:'',paqCuotas:cobro==='por paquete'?document.getElementById('f-paq-cuotas').value:'',paqNcuotas:cobro==='por paquete'&&document.getElementById('f-paq-cuotas').value==='si'?document.getElementById('f-paq-ncuotas').value:'',paqMontoCuota:cobro==='por paquete'&&document.getElementById('f-paq-cuotas').value==='si'?(+(document.getElementById('f-paq-precio').value||0)/+(document.getElementById('f-paq-ncuotas').value||1)).toFixed(2):'',tutorNombre:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-nombre').value:'',tutorVinculo:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-vinculo').value:'',tutorDni:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-dni').value:'',tutorTel:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-tel').value:'',tutorEmail:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-email').value:'',tutorObs:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-obs').value:''};
+  var d={nombre:nombre,apellido:apellido,fnac:document.getElementById('f-fnac').value,dni:document.getElementById('f-dni').value,sexo:document.getElementById('f-sexo').value,categoria:cat,tel:document.getElementById('f-tel').value,email:document.getElementById('f-email').value,dir:document.getElementById('f-dir').value,os:document.getElementById('f-os').value,afilid:document.getElementById('f-afilid').value,emerg:document.getElementById('f-emerg').value,emergtel:document.getElementById('f-emergtel').value,estado:document.getElementById('f-estado').value,modalidad:document.getElementById('f-modalidad').value,tipo:document.getElementById('f-tipo').value,motivo:document.getElementById('f-motivo').value,derivado:document.getElementById('f-derivado').value,cie:document.getElementById('f-cie').value,obs:document.getElementById('f-obs').value,terapia:(document.getElementById('f-terapia').value==='Otra'?document.getElementById('f-terapia-otra').value:document.getElementById('f-terapia').value)||'',cobro:cobro,mpago:document.getElementById('f-mpago').value,tarifa:cobro==='por sesion'?document.getElementById('f-tarifa').value:'',paqNsesiones:cobro==='por paquete'?document.getElementById('f-paq-nsesiones').value:'',paqPrecio:cobro==='por paquete'?document.getElementById('f-paq-precio').value:'',paqCuotas:cobro==='por paquete'?document.getElementById('f-paq-cuotas').value:'',paqNcuotas:cobro==='por paquete'&&document.getElementById('f-paq-cuotas').value==='si'?document.getElementById('f-paq-ncuotas').value:'',paqMontoCuota:cobro==='por paquete'&&document.getElementById('f-paq-cuotas').value==='si'?(+(document.getElementById('f-paq-precio').value||0)/+(document.getElementById('f-paq-ncuotas').value||1)).toFixed(2):'',tutorNombre:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-nombre').value:'',tutorVinculo:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-vinculo').value:'',tutorDni:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-dni').value:'',tutorTel:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-tel').value:'',tutorEmail:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-email').value:'',tutorObs:(cat==='menor'||cat==='persona dependiente')?document.getElementById('f-tutor-obs').value:''};
   if(editId){var i=P.findIndex(function(x){return x.id===editId;});P[i]=Object.assign({},P[i],d);}
   else{d.id=Date.now();d.creado=new Date().toISOString();P.push(d);}
   save();cerrarModal('modal-paciente');
@@ -747,6 +800,13 @@ function renderResumen(){
 }
 
 var calYear=new Date().getFullYear(),calMonth=new Date().getMonth();
+function entrarApp(){
+  var ws=document.getElementById('welcome-screen');
+  ws.classList.add('hidden');
+  setTimeout(function(){ws.style.display='none';},500);
+  document.getElementById('main-app').style.display='flex';
+  renderPacientes();
+}
 document.querySelectorAll('.modal-bg').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)cerrarModal(m.id);});});
 renderPacientes();
 </script>
